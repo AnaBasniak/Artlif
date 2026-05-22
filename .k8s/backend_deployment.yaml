@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend-artlif
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-artlif
+  template:
+    metadata:
+      labels:
+        app: backend-artlif
+    spec:
+      containers:
+        - name: backend-artlifcontainer
+          image: anabasniak/artlif-backend:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+              name: app-config
+          env:
+            - name: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: artbackend-postgres-secret
+                  key: postgres

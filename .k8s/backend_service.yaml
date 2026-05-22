@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: artlif-backend-service
+spec:
+  selector:
+    app: backend-artlif
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000

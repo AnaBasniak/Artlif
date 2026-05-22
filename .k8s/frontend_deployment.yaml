@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend-artlif
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-artlif
+  template:
+    metadata:
+      labels:
+        app: frontend-artlif
+    spec:
+      containers:
+      - name: frontend-artlifcontainer
+        image: anabasniak/artlif-frontend:latest
+        ports:
+        - containerPort: 5173
+        env:
+        - name: REACT_APP_API_URL
+          valueFrom:
+            secretKeyRef:
+              name:  artfrontend-config
+              key: API_URL

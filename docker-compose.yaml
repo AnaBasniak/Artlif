@@ -1,0 +1,53 @@
+services:
+    postgres:
+        image: postgres:15-alpine
+        container_name: artliv_postgres # nome do banco
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: datalif
+        ports:
+            - "5432:5432"
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U postgres -d datalif"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - artliv_networks
+
+
+  #======================================================================================
+    backend:
+        networks:
+            - artliv_networks
+        build:
+            context: ./backlif
+            dockerfile: Dockerfile
+        container_name: artliv_backend
+        ports:
+            - "3000:3000" #
+        depends_on:
+            - postgres
+        command:  npm start #COLOCAR O COMANDO NO FRONT E O BUILD
+        restart: unless-stopped
+
+#=====================================================================================
+
+    frontend:
+        build:
+            context: ./artlif
+            dockerfile: Dockerfile
+        container_name: artliv_frontend #nome front
+        ports:
+            - "5173:5173"
+        depends_on:
+            - backend
+        networks:
+            -  artliv_networks
+
+#=====================================================================================
+
+networks:
+    artliv_networks:
+        driver: bridge
