@@ -4,8 +4,8 @@ metadata:
   name: app-config #
   labels:
     app: Artlif #
-  data:
-  DB_HOST>: "postgres"
+data:
+  DB_HOST: "postgres"
   DB_PORT: "5432"
   NODE_ENV: "development"
-  API_URL: "http://backend-service:3000
+  API_URL: "http://backend-service:3000"
