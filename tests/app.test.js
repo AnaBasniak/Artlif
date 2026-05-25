@@ -1,0 +1,1 @@
+function calcularTotalItens(itens) { return itens.length; }; describe('Testes', () => { test('Basico', () => { expect(calcularTotalItens([1, 2])).toBe(2); }); });
