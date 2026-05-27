@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app-config #
+  name: app-config 
   labels:
-    app: Artlif #
+    app: Artlif 
 data:
   DB_HOST: "postgres"
   DB_PORT: "5432"
