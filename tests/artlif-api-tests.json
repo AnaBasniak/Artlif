@@ -1,0 +1,54 @@
+{
+  "v": 1,
+  "name": "ArtLif - Testes de API",
+  "folders": [],
+  "requests": [
+    {
+      "v": 1,
+      "name": "Buscar Todas as Artes",
+      "method": "GET",
+      "endpoint": "<<baseUrl>>/api/artworks",
+      "headers": [],
+      "params": [],
+      "body": {
+        "contentType": "none",
+        "body": ""
+      },
+      "testScripts": [
+        {
+          "active": true,
+          "script": "pw.test(\"Retorna status 200 e uma lista de artes\", function () {\n    pw.expect(pw.response.status).toBe(200);\n    const data = JSON.parse(pw.response.body);\n    pw.expect(Array.isArray(data)).toBe(true);\n});"
+        }
+      ]
+    },
+    {
+      "v": 1,
+      "name": "Cadastrar Nova Arte (Autoria Humana)",
+      "method": "POST",
+      "endpoint": "<<baseUrl>>/api/artworks",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json",
+          "active": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"title\": \"Obra Humana Teste\",\n  \"price\": 150.00,\n  \"isArtificialIntelligence\": false\n}"
+      },
+      "testScripts": [
+        {
+          "active": true,
+          "script": "pw.test(\"Arte cadastrada com sucesso\", function () {\n    pw.expect(pw.response.status).toBe(201);\n});"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "authType": "none",
+    "authActive": true
+  },
+  "headers": []
+}
